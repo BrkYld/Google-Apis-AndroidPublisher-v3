@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "Hash": "JVxhYlHngQ15tf9CbKb4Q+3LE3giAsVadqS/PKX3pug=",
+  "Source": "google-publisher-api",
+  "BasePath": "_content/google-publisher-api",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": []
+}
