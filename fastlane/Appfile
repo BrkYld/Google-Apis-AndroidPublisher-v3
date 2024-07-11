@@ -1,0 +1,2 @@
+json_key_file("/Users/burakyildirim/Downloads/keystore/andrid-keystore/google-service-account.json")
+package_name("com.appcircle.sample_flutter_google_submit_app")

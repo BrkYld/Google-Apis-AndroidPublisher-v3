@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "8pFzfHgdy4wG0mkyxhnFYcPw9BOkCwlTF3SlS9AShHaKS7QN9MfNgqME+rChRYn5ajeP49i2i3FEHRmOAQwdyQ==",
+  "dgSpecHash": "JtdZFxQtsNU=",
   "success": true,
   "projectFilePath": "/Users/burakyildirim/Repository/Google-Apis-AndroidPublisher-v3/google-publisher-api/google-publisher-api/google-publisher-api.csproj",
   "expectedPackageFiles": [
@@ -17,7 +17,10 @@
     "/Users/burakyildirim/.nuget/packages/swashbuckle.aspnetcore.swaggergen/6.5.0/swashbuckle.aspnetcore.swaggergen.6.5.0.nupkg.sha512",
     "/Users/burakyildirim/.nuget/packages/swashbuckle.aspnetcore.swaggerui/6.5.0/swashbuckle.aspnetcore.swaggerui.6.5.0.nupkg.sha512",
     "/Users/burakyildirim/.nuget/packages/system.codedom/7.0.0/system.codedom.7.0.0.nupkg.sha512",
-    "/Users/burakyildirim/.nuget/packages/system.management/7.0.2/system.management.7.0.2.nupkg.sha512"
+    "/Users/burakyildirim/.nuget/packages/system.management/7.0.2/system.management.7.0.2.nupkg.sha512",
+    "/Users/burakyildirim/.nuget/packages/microsoft.netcore.app.ref/7.0.20/microsoft.netcore.app.ref.7.0.20.nupkg.sha512",
+    "/Users/burakyildirim/.nuget/packages/microsoft.aspnetcore.app.ref/7.0.20/microsoft.aspnetcore.app.ref.7.0.20.nupkg.sha512",
+    "/Users/burakyildirim/.nuget/packages/microsoft.netcore.app.host.osx-arm64/7.0.20/microsoft.netcore.app.host.osx-arm64.7.0.20.nupkg.sha512"
   ],
   "logs": []
 }
