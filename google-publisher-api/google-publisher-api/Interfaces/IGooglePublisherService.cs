@@ -14,6 +14,9 @@ namespace google_publisher_api.Services
         Task<List<string>> GetAppCurrentTranslations(string packageName);
         Task<bool> SetDefaultLanguage(string packageName, string language,bool changesNotSentForReview);
         Task<bool> RemoveTranslation(string packageName, string language, bool changesNotSentForReview);
+        Task<Tracks> GetTrackList(string packageName);
+        Task<bool> SubmitReleaseToTrack(string packageName, SubmitReleaseToTrackRequest model, string trackValue, bool changesNotSentForReview);
+        Task<object> TestEmptyService();
     }
 }
 

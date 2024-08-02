@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Google.Apis.AndroidPublisher.v3.Data;
 using google_publisher_api.Services;
 using Microsoft.AspNetCore.Mvc;
+using static google_publisher_api.Models.GooglePublisherModel;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -95,6 +96,57 @@ namespace google_publisher_api.Controllers
             try
             {
                 return Ok(await _googlePublisherService.GetAppCurrentTranslations(packageName));
+            }
+            catch (Exception ex)
+            {
+                // Handle exception (e.g., package name not found)
+                Console.WriteLine($"Error checking package existence: {ex.Message}");
+                return Ok(ex.Message);
+            }
+
+        }
+
+        // GET /app/{packageName}/tracks
+        [HttpGet("app/{packageName}/tracks")]
+        public async Task<IActionResult> GetTrackList(string packageName)
+        {
+            try
+            {
+                return Ok(await _googlePublisherService.GetTrackList(packageName));
+            }
+            catch (Exception ex)
+            {
+                // Handle exception (e.g., package name not found)
+                Console.WriteLine($"Error checking package existence: {ex.Message}");
+                return Ok(ex.Message);
+            }
+
+        }
+
+        // POST /app/{packageName}/tracks/{trackValue}
+        [HttpPost("app/{packageName}/tracks/{trackValue}")]
+        public async Task<IActionResult> SubmitReleaseToTrack(string packageName, string trackValue, [FromBody] SubmitReleaseToTrackRequest model, [FromQuery] bool changesNotSentForReview = false)
+        {
+            try
+            {
+                return Ok(await _googlePublisherService.SubmitReleaseToTrack(packageName, model, trackValue, changesNotSentForReview));
+            }
+            catch (Exception ex)
+            {
+                // Handle exception (e.g., package name not found)
+                Console.WriteLine($"Error checking package existence: {ex.Message}");
+                return Ok(ex.Message);
+            }
+
+        }
+
+        // GET /app/test
+        [HttpGet("app/test")]
+        public async Task<IActionResult> TestEmptyService()
+        {
+            try
+            {
+                return Ok(await _googlePublisherService.TestEmptyService());
             }
             catch (Exception ex)
             {

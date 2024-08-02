@@ -7,10 +7,10 @@ using static google_publisher_api.Models.GooglePublisherModel;
 namespace google_publisher_api.Services
 {
     public class GooglePublisherService : IGooglePublisherService
-	{
+    {
         private readonly AndroidPublisherService _androidPublisherService;
         public GooglePublisherService()
-		{
+        {
             // Load credentials from JSON key file
             GoogleCredential credential;
             using (var stream = new FileStream("/Users/burakyildirim/Downloads/keystore/andrid-keystore/google-service-account.json", FileMode.Open, FileAccess.Read))
@@ -35,7 +35,7 @@ namespace google_publisher_api.Services
 
             // Getting Full Description, Short Description and titile for default language
             var appDetailsRequest = _androidPublisherService.Edits.Listings.Get(packageName, edit.Id, editDetails.DefaultLanguage);
-            
+
             var appDetailsResponse = await appDetailsRequest.ExecuteAsync();
             await _androidPublisherService.Edits.Delete(packageName, edit.Id).ExecuteAsync();
 
@@ -46,7 +46,7 @@ namespace google_publisher_api.Services
         public async Task<AppDetails> GetAppDetails(string packageName)
         {
             var edit = await _androidPublisherService.Edits.Insert(new AppEdit(), packageName).ExecuteAsync();
-   
+
             // Getting App Detail for default language
             var editDetailsRequest = _androidPublisherService.Edits.Details.Get(packageName, edit.Id);
             var editDetails = await editDetailsRequest.ExecuteAsync();
@@ -56,7 +56,7 @@ namespace google_publisher_api.Services
         }
 
         // Update App details
-        public async Task<bool> UpdateAppDetails(string packageName,UpdateAppDetailRequest model, bool changesNotSentForReview)
+        public async Task<bool> UpdateAppDetails(string packageName, UpdateAppDetailRequest model, bool changesNotSentForReview)
         {
             AppDetails details = await GetAppDetails(packageName);
 
@@ -214,7 +214,7 @@ namespace google_publisher_api.Services
 
             details.DefaultLanguage = language;
 
-            await _androidPublisherService.Edits.Details.Update(details,packageName, edit.Id).ExecuteAsync();
+            await _androidPublisherService.Edits.Details.Update(details, packageName, edit.Id).ExecuteAsync();
 
             EditsResource.CommitRequest commitRequest = _androidPublisherService.Edits.Commit(packageName, edit.Id);
             commitRequest.ChangesNotSentForReview = changesNotSentForReview;
@@ -238,6 +238,83 @@ namespace google_publisher_api.Services
             return true;
         }
 
+        // Get all tracks for submitting exclude of wear and automotive tracks (does not display on Google Play Console UI)
+        public async Task<Tracks> GetTrackList(string packageName)
+        {
+            var edit = await _androidPublisherService.Edits.Insert(new AppEdit(), packageName).ExecuteAsync();
+            List<Track> trakcList = (await _androidPublisherService.Edits.Tracks.List(packageName, edit.Id).ExecuteAsync()).Tracks
+                .Where(t=> t.TrackValue != "automotive:beta" &&
+                t.TrackValue != "automotive:internal" &&
+                t.TrackValue != "automotive:production" &&
+                t.TrackValue != "wear:beta" &&
+                t.TrackValue != "wear:internal" &&
+                t.TrackValue != "wear:production"
+                ).ToList();
+
+            Tracks tracks = new Tracks();
+            foreach(var track in trakcList)
+            {
+                switch (track.TrackValue)
+                {
+                    case "production":
+                        tracks.production.Add(track);
+                        break;
+                    case "beta":
+                        tracks.openTesting.Add(track);
+                        break;
+                    case "internal":
+                        tracks.internalTesting.Add(track);
+                        break;
+                    default:
+                        tracks.closedTesting.Add(track);
+                        break;
+                }
+            }
+            return tracks;
+        }
+
+        // To release fully or to a certain percentage of users across different channels.
+        public async Task<bool> SubmitReleaseToTrack(string packageName, SubmitReleaseToTrackRequest model, string trackValue, bool changesNotSentForReview)
+        {
+            var edit = await _androidPublisherService.Edits.Insert(new AppEdit(), packageName).ExecuteAsync();
+            TrackRelease release = new TrackRelease
+            {
+                Name = model.name,
+                Status = "completed",
+                ReleaseNotes = model.releaseNotes,
+                VersionCodes = model.versionCodes,
+            };
+
+            // IF release is staged rollout ( setted %45 of all users etc. )
+            if (model.userFraction != null && model.userFraction != Convert.ToDouble(1) && model.userFraction != Convert.ToDouble(0))
+            {
+                release.Status = "inProgress";
+                release.UserFraction = model.userFraction;
+            }
+
+            Track track = new Track
+            {
+                TrackValue = trackValue,
+                Releases = new List<TrackRelease> { release },
+            };
+
+            await _androidPublisherService.Edits.Tracks.Update(track, packageName, edit.Id, trackValue).ExecuteAsync();
+
+            EditsResource.CommitRequest commitRequest = _androidPublisherService.Edits.Commit(packageName, edit.Id);
+            commitRequest.ChangesNotSentForReview = changesNotSentForReview;
+            await commitRequest.ExecuteAsync();
+
+            return true;
+        }
+
+        public async Task<object> TestEmptyService()
+        {
+            string packageName = "com.appcircle.sample_flutter_google_submit_app";
+            var edit = await _androidPublisherService.Edits.Insert(new AppEdit(), packageName).ExecuteAsync();
+
+            var request = _androidPublisherService.Edits.Bundles.List(packageName,edit.Id);
+            
+            return await request.ExecuteAsync();
+        }
     }
 }
-

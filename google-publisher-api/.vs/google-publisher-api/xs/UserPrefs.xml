@@ -1,38 +1,31 @@
 ﻿<Properties StartupConfiguration="{9156EBA0-E52C-4404-8A8E-E511D6CFD5E5}|https">
-  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
-  <MonoDevelop.Ide.ItemProperties.google-publisher-api PreferredExecutionTarget="/Applications/Google Chrome.app" />
   <MultiItemStartupConfigurations />
-  <MonoDevelop.Ide.DebuggingService.Breakpoints>
-    <BreakpointStore />
-  </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
   <MonoDevelop.Ide.Workbench ActiveDocument="google-publisher-api/Services/GooglePublisherService.cs">
     <Files>
-      <File FileName="google-publisher-api/Services/GooglePublisherService.cs" Line="209" Column="117" />
-      <File FileName="google-publisher-api/Controllers/GooglePublisherController.cs" Line="127" Column="137" />
+      <File FileName="google-publisher-api/Services/GooglePublisherService.cs" Line="278" Column="65" />
+      <File FileName="google-publisher-api/Controllers/GooglePublisherController.cs" Line="132" Column="72" />
       <File FileName="google-publisher-api/Program.cs" Line="23" Column="18" />
-      <File FileName="google-publisher-api/Interfaces/IGooglePublisherService.cs" Line="16" Column="75" />
-      <File FileName="google-publisher-api/Models/GooglePublisherModel.cs" Line="20" Column="38" />
+      <File FileName="google-publisher-api/Interfaces/IGooglePublisherService.cs" Line="18" Column="88" />
+      <File FileName="google-publisher-api/Models/GooglePublisherModel.cs" Line="30" Column="21" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
         <State name="__root__">
           <Node name="google-publisher-api">
             <Node name="google-publisher-api">
-              <Node name="Controllers" expanded="True" />
-              <Node name="Interfaces" expanded="True" />
-              <Node name="Models" expanded="True" />
-              <Node name="Services" expanded="True">
+              <Node name="Services">
                 <Node name="GooglePublisherService.cs" selected="True" />
               </Node>
-              <Node name="appsettings.json" expanded="True" />
             </Node>
           </Node>
         </State>
       </Pad>
-      <Pad Id="MonoDevelop.Debugger.WatchPad">
-        <State />
-      </Pad>
     </Pads>
   </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.ItemProperties.google-publisher-api PreferredExecutionTarget="/Applications/Google Chrome.app" />
 </Properties>
